@@ -31,9 +31,9 @@ class Masterdata extends ResourceController
 
     /* DEPARTMENTS */
     public function getListDepartment(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
         
         $search = array(
             'search' => $this->request->getVar('search')

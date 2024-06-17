@@ -47,6 +47,19 @@ function generateMenuItems($menuItems, $parentId = 'accordionSidenav', $isSubmen
         $activeClass = ($currentUrl === '/' . trim($item['url'], '/')) ? 'active' : '';
 
         if (isset($item['submenu'])) {
+            // Check if any submenu item is active
+            $submenuActive = false;
+            foreach ($item['submenu'] as $subItem) {
+                if ($currentUrl === '/' . trim($subItem['url'], '/')) {
+                    $submenuActive = true;
+                    break;
+                }
+            }
+
+            if ($submenuActive) {
+                $activeClass = 'active';
+            }
+
             $html .= '<a class="nav-link collapsed '.$activeClass.'" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#'.$collapseId.'" aria-expanded="false" aria-controls="'.$collapseId.'">';
             if ($icon) {
                 $html .= '<div class="nav-link-icon"><i data-feather="'.$icon.'"></i></div>';
@@ -54,11 +67,11 @@ function generateMenuItems($menuItems, $parentId = 'accordionSidenav', $isSubmen
             $html .= $item['name'];
             $html .= '<div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>';
             $html .= '</a>';
-            $html .= '<div class="collapse" id="'.$collapseId.'" data-bs-parent="#'.$parentId.'">';
+            $html .= '<div class="collapse '.($submenuActive ? 'show' : '').'" id="'.$collapseId.'" data-bs-parent="#'.$parentId.'">';
             $html .= generateMenuItems($item['submenu'], $collapseId, true);
             $html .= '</div>';
         } else {
-            $html .= '<a class="nav-link '.$activeClass.'" href="'.$item['url'].'">';
+            $html .= '<a class="nav-link '.$activeClass.'" href="'.base_url().$item['url'].'">';
             if ($icon) {
                 $html .= '<div class="nav-link-icon"><i data-feather="'.$icon.'"></i></div>';
             }
@@ -77,16 +90,16 @@ function generateMenuItems($menuItems, $parentId = 'accordionSidenav', $isSubmen
 $menuItems = [
     [
         'name' => 'Dashboard',
-        'url' => '/',
+        'url' => '',
         'icon' => 'activity',
     ],
     [
         'name' => 'Masterdata',
-        'url' => '#',
+        'url' => 'masterdata',
         'icon' => 'columns',
         'submenu' => [
             ['name' => 'Pegawai', 'url' => 'employees'],
-            ['name' => 'Departemen', 'url' => 'user'],
+            ['name' => 'Departemen', 'url' => 'masterdata/department'],
             ['name' => 'Tim', 'url' => 'divisi'],
             ['name' => 'Hari Libur Nasional', 'url' => 'jabatan'],
             ['name' => 'Referensi Jenis', 'url' => 'jenis-type'],

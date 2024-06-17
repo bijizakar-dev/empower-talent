@@ -14,7 +14,10 @@
         <link rel="icon" type="image/x-icon" href="<?= base_url()?>/template/assets/img/favicon.png" />
 
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
+        <script src="<?= base_url()?>/assets/js/feather.min.js"></script>
+        <script src="<?= base_url()?>/assets/js/jquery.min.js"></script>
+        <script src="<?= base_url()?>/assets/js/sweetalert2.all.min.js"></script>
+
     </head>
     <body class="nav-fixed">
         <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
