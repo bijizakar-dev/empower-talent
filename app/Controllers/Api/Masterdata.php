@@ -103,9 +103,9 @@ class Masterdata extends ResourceController
 
     /* TEAMS */
     public function getListTeam(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
         
         $search = array(
             'search' => $this->request->getVar('search')
@@ -175,9 +175,9 @@ class Masterdata extends ResourceController
 
     /* STATUS EMPLOYMENT*/
     public function getListStatusEmployment(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
         
         $search = array(
             'search' => $this->request->getVar('search')
@@ -319,9 +319,9 @@ class Masterdata extends ResourceController
 
     /* REFERENCE TYPES */
     public function getListReferenceType(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
         
         $search = array(
             'search' => $this->request->getVar('search'),
@@ -393,9 +393,9 @@ class Masterdata extends ResourceController
 
     /* HOLIDAYS */
     public function getListHoliday(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
         
         $search = array(
             'search' => $this->request->getVar('search'),
@@ -479,6 +479,7 @@ class Masterdata extends ResourceController
 
         $data = json_decode($response);
         if(!empty($data)) {
+            $this->m_holiday->truncate();
             foreach ($data as $val) {
                 $add = array (
                     'id' => null,

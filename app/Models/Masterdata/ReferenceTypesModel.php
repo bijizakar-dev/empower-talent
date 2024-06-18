@@ -15,7 +15,7 @@ class ReferenceTypesModel extends Model
 
     function get_list_reference_type($limit, $start, $search) {
         $q = '';
-        $limit = " limit $start , $limit";
+        // $limit = " limit $start , $limit";
 
         if ($search['search'] != '') {
             $q .= "AND name LIKE '%".$search['search']."%' OR name LIKE '%".$search['search']."%'";
@@ -27,7 +27,7 @@ class ReferenceTypesModel extends Model
                 WHERE deleted_at is null  
                 $q order by name asc ";
 
-        $query = $this->query($select.$sql.$limit);
+        $query = $this->query($select.$sql);
         $result['data'] = $query->getResult();
         $result['jumlah'] = $this->query($count.$sql)->getRow()->count;
 

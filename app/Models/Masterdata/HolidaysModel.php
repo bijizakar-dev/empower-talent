@@ -27,7 +27,7 @@ class HolidaysModel extends Model
                 WHERE deleted_at is null  
                 $q order by date desc ";
 
-        $query = $this->query($select.$sql.$limit);
+        $query = $this->query($select.$sql);
         $result['data'] = $query->getResult();
         $result['jumlah'] = $this->query($count.$sql)->getRow()->count;
 

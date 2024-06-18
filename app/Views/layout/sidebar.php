@@ -100,9 +100,10 @@ $menuItems = [
         'submenu' => [
             ['name' => 'Pegawai', 'url' => 'employees'],
             ['name' => 'Departemen', 'url' => 'masterdata/department'],
-            ['name' => 'Tim', 'url' => 'divisi'],
-            ['name' => 'Hari Libur Nasional', 'url' => 'jabatan'],
-            ['name' => 'Referensi Jenis', 'url' => 'jenis-type'],
+            ['name' => 'Tim', 'url' => 'masterdata/team'],
+            ['name' => 'Jadwal Libur', 'url' => 'masterdata/holiday'],
+            ['name' => 'Referensi Jenis', 'url' => 'masterdata/ReferenceType'],
+            ['name' => 'Status Pegawai', 'url' => 'masterdata/statusEmployee'],
         ],
     ],
     [
