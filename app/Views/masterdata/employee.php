@@ -28,6 +28,8 @@
 
         function reset_form() {
             $('.add_emp').val('');
+            $('#img_emp').removeAttr('src')
+            $('#img_emp').attr('src', '<?= base_url()?>template/assets/img/demo/user-placeholder.svg'); 
         }
 
         function get_list_employee() {
@@ -184,10 +186,10 @@
                 success: function(data) {
                     if(data.data.gender == 'M') {
                         $('#img_emp').removeAttr('src')
-                        $('#img_emp').attr('src', '<?= base_url()?>/template/assets/img/illustrations/profiles/profile-2.png');
+                        $('#img_emp').attr('src', '<?= base_url()?>template/assets/img/illustrations/profiles/profile-2.png');
                     } else {
                         $('#img_emp').removeAttr('src')
-                        $('#img_emp').attr('src', '<?= base_url()?>/template/assets/img/illustrations/profiles/profile-1.png');
+                        $('#img_emp').attr('src', '<?= base_url()?>template/assets/img/illustrations/profiles/profile-1.png');
                     }
 
                     $('#id_emp').val(id);

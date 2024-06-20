@@ -42,6 +42,10 @@
         <script src="<?= base_url()?>/assets/js/feather.min.js"></script>
         <script src="<?= base_url()?>/assets/js/jquery.min.js"></script>
         <script src="<?= base_url()?>/assets/js/sweetalert2.all.min.js"></script>
+        <script src="<?= base_url()?>/template/js/scripts.js"></script>
+        <script src="<?= base_url()?>/assets/js/simple-datatables.min.js"></script>
+        <script src="<?= base_url()?>/assets/js/helper_lib.js""></script>
+
         <script type="text/javascript">
             function showLoading() {
                 $('#loadingSpinner').show();  // Menampilkan spinner
@@ -88,14 +92,11 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="<?= base_url()?>/template/js/scripts.js"></script>
-        <script src="<?= base_url()?>/assets/js/simple-datatables.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
         <script src="<?= base_url()?>/template/assets/demo/chart-area-demo.js"></script>
         <script src="<?= base_url()?>/template/assets/demo/chart-bar-demo.js"></script>
         <script src="<?= base_url()?>/template/js/datatables/datatables-simple-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js" crossorigin="anonymous"></script>
         <script src="<?= base_url()?>/template/js/litepicker.js"></script>
-        <script src="<?= base_url()?>/assets/js/helper_lib.js""></script>
     </body>
 </html>
