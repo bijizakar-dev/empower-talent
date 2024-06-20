@@ -98,7 +98,7 @@ $menuItems = [
         'url' => 'masterdata',
         'icon' => 'columns',
         'submenu' => [
-            ['name' => 'Pegawai', 'url' => 'employees'],
+            ['name' => 'Pegawai', 'url' => 'masterdata/employee'],
             ['name' => 'Departemen', 'url' => 'masterdata/department'],
             ['name' => 'Tim', 'url' => 'masterdata/team'],
             ['name' => 'Jadwal Libur', 'url' => 'masterdata/holiday'],

@@ -96,5 +96,6 @@
         <script src="<?= base_url()?>/template/js/datatables/datatables-simple-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js" crossorigin="anonymous"></script>
         <script src="<?= base_url()?>/template/js/litepicker.js"></script>
+        <script src="<?= base_url()?>/assets/js/helper_lib.js""></script>
     </body>
 </html>

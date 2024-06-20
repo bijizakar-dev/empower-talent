@@ -20,7 +20,7 @@ class EmployeesModel extends Model
 
     function get_list_employee($limit, $start, $search) {
         $q = '';
-        $limit = " limit $start , $limit";
+        // $limit = " limit $start , $limit";
 
         if ($search['search'] != '') {
             $q .= "AND ( e.name LIKE '%".$search['search']."%' 
@@ -67,7 +67,7 @@ class EmployeesModel extends Model
                 WHERE e.deleted_at is null 
                 $q order by e.id asc ";
 
-        $query = $this->query($select.$sql.$limit);
+        $query = $this->query($select.$sql);
         $result['data'] = $query->getResult();
 
         $count = "SELECT count(*) as count ";

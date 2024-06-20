@@ -501,9 +501,9 @@ class Masterdata extends ResourceController
     
     /* EMPLOYEES */
     public function getListEmployee(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
 
         $search = array(
             'search'            => $this->request->getVar('search'),
@@ -551,7 +551,7 @@ class Masterdata extends ResourceController
         $seq = str_pad($seq, 3, '0', STR_PAD_LEFT);
         $idTeam = str_pad($idTeam, 2, '0', STR_PAD_LEFT);
 
-        $nip = $seq.$idTeam.$joinYear;
+        $nip = 'ET-'.$idTeam.$joinYear.'-'.$seq;
 
         return $nip;
     }

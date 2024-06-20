@@ -66,4 +66,20 @@ class StatusEmploymentsModel extends Model
         
         return $res;
     }
+
+    function get_all_statEmployment(){       
+        $sql = "SELECT id, name 
+                FROM status_employments
+                WHERE deleted_at is null  
+                order by name asc ";
+
+        $query = $this->query($sql)->getResult();
+        $data =  array();
+
+        foreach ($query as $key => $value) {
+            $data[$value->id] = $value->name;
+        }
+
+        return $data;
+    }    
 }
