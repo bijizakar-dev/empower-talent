@@ -55,7 +55,7 @@
                         badgeStatus = v.active == 1 ? 'bg-green-soft text-green' : 'bg-red-soft text-red';
                         status = v.active == 1 ? 'Aktif' : 'Non-Aktif'
 
-                        photoProf = v.gender == 'F' ? 'Profile-1.png' : 'Profile-2.png';
+                        photoProf = v.gender == 'F' ? 'profile-1.png' : 'profile-2.png';
 
                         str = '<tr>'+
                                 '<td>'+
