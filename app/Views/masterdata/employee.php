@@ -60,7 +60,7 @@
                         str = '<tr>'+
                                 '<td>'+
                                     '<div class="d-flex align-items-center">'+
-                                        '<div class="avatar me-2"><img class="avatar-img img-fluid" src="<?= base_url()?>/template/assets/img/illustrations/profiles/'+photoProf+'" /></div>'+
+                                        '<div class="avatar me-2"><img class="avatar-img img-fluid" src="<?= base_url()?>template/assets/img/illustrations/profiles/'+photoProf+'" /></div>'+
                                         '<div>'+v.name+' <br> <span style="font-size: 13px"><small> NIP. '+v.nip+'</small></span></div>'+
                                     '</div>'+
                                 '</td>'+
