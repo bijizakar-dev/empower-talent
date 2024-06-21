@@ -23,6 +23,7 @@
             $('#add').click(function() {
                 reset_form();
                 $('#add_modal').modal('show');
+                $('.modal-title').html('Tambah Data')
             });
         });
 
@@ -430,5 +431,5 @@
                 </div>
             </div>
         </div>
-    </div>s
+    </div>
 <?= $this->endSection() ?>

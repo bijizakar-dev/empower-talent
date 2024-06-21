@@ -247,9 +247,9 @@ class Masterdata extends ResourceController
 
     /* ROLES */
     public function getListRole(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
         
         $search = array(
             'search' => $this->request->getVar('search')

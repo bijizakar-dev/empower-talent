@@ -23,6 +23,7 @@
             $('#add').click(function() {
                 reset_form();
                 $('#add_modal').modal('show');
+                $('.modal-title').html('Tambah Data')
             });
         });
 

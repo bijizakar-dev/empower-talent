@@ -21,7 +21,7 @@
                 width: 100%;
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
-                backdrop-filter: blur(5px); 
+                backdrop-filter: blur(1px); 
                 display: none;
                 z-index: 9999;
             }

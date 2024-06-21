@@ -119,11 +119,11 @@ $menuItems = [
     ],
     [
         'name' => 'Pengaturan',
-        'url' => '#',
+        'url' => 'sistem',
         'icon' => 'tool',
         'submenu' => [
-            ['name' => 'User', 'url' => 'user'],
-            ['name' => 'Role', 'url' => 'role'],
+            ['name' => 'User', 'url' => 'sistem/user'],
+            ['name' => 'Role', 'url' => 'sistem/role'],
             ['name' => 'Setting Aplikasi', 'url' => 'setting-app'],
         ],
     ],

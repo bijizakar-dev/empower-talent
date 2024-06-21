@@ -24,7 +24,7 @@ class UsersModel extends Model
 
     function get_list_user($limit, $start, Array $search) {
         $q = '';
-        $limit = " limit $start , $limit";
+        // $limit = " limit $start , $limit";
 
         if ($search['search'] != '') {
             $q .= "AND u.username LIKE '%".$search['search']."%' ";
@@ -37,14 +37,14 @@ class UsersModel extends Model
         }
 
         
-        $select = "SELECT u.* , e.name as employee_name, r.name as role_name ";
+        $select = "SELECT u.* , e.name as employee_name, e.nip as employee_nip ,r.name as role_name ";
         $sql = " FROM users u 
                 JOIN employees e ON (u.id_employee = e.id)
                 JOIN roles r ON (u.id_role = r.id)
                 WHERE u.deleted_at is null 
                 $q order by u.username asc";
 
-        $query = $this->query($select.$sql.$limit);
+        $query = $this->query($select.$sql);
         $result['data'] = $query->getResult();
 
         $count = "SELECT count(*) as count ";

@@ -130,4 +130,25 @@ class EmployeesModel extends Model
         
         return $res;
     }
+
+    function get_all_employee(){
+        $sql = "SELECT e.*, t.name as team_name, 
+                    d.name as department_name, se.name as status_employment
+                FROM employees e 
+                JOIN teams t ON (e.id_team = t.id)
+                JOIN departments d ON (e.id_department = d.id)
+                JOIN status_employments se ON (e.id_status_employment = se.id)
+                WHERE e.deleted_at is null 
+                    AND e.active = 1 
+                ORDER BY e.id asc ";
+
+        $query = $this->query($sql)->getResult();
+        $data =  array();
+
+        foreach ($query as $key => $value) {
+            $data[$value->id] = $value->name;
+        }
+
+        return $data;
+    }
 }

@@ -15,7 +15,7 @@ class RolesModel extends Model
 
     function get_list_role($limit, $start, $search) {
         $q = '';
-        $limit = " limit $start , $limit";
+        // $limit = " limit $start , $limit";
 
         if ($search['search'] != '') {
             $q .= "AND name LIKE '%".$search['search']."%' OR name LIKE '%".$search['search']."%'";
@@ -27,7 +27,7 @@ class RolesModel extends Model
                 WHERE deleted_at is null  
                 $q order by name asc ";
 
-        $query = $this->query($select.$sql.$limit);
+        $query = $this->query($select.$sql);
         $result['data'] = $query->getResult();
         $result['jumlah'] = $this->query($count.$sql)->getRow()->count;
 
@@ -65,5 +65,22 @@ class RolesModel extends Model
         $res = $this->where('id', $id)->update($id, $data);
         
         return $res;
+    }
+
+    function get_all_role() {
+        $sql = "SELECT r.id, r.name 
+                FROM roles r
+                WHERE r.deleted_at is null 
+                    AND r.active = 1 
+                order by r.name asc ";
+
+        $query = $this->query($sql)->getResult();
+        $data =  array();
+
+        foreach ($query as $key => $value) {
+            $data[$value->id] = $value->name;
+        }
+
+        return $data;
     }
 }

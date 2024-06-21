@@ -25,9 +25,9 @@ class Sistem extends ResourceController
 
     /* DATA USER */
     public function getListUser(): ResponseInterface {
-        if(!$this->request->getVar('page')){
-            return $this->respond(NULL, 400);
-        }
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
 
         $search = array(
             'search'            => $this->request->getVar('search'),
