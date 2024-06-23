@@ -102,8 +102,8 @@
                                 '<td>'+v.role_name+'</td>'+
                                 '<td><span class="badge '+badgeStatus+'">'+status+'</span></td>'+
                                 '<td>'+
-                                    '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark me-2" onclick="edit_user('+v.id+')" title="Ubah Data"><i data-feather="edit"></i></button>'+    
-                                    '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark me-2" onclick="edit_user('+v.id+')" title="Ubah Password"><i data-feather="key"></i></button>'+    
+                                    '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark me-2" onclick="edit_user('+v.id+')" title="Ubah Data"><i data-feather="edit"></i></button> '+    
+                                    '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark me-2" onclick="edit_user('+v.id+')" title="Ubah Password"><i data-feather="key"></i></button> '+    
                                     '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark" onclick="delete_user('+v.id+')" title="Hapus Data"><i data-feather="trash-2"></i></button>'+
                                 '</td>'+
                             '</tr>';

@@ -113,7 +113,7 @@ $menuItems = [
         'submenu' => [
             ['name' => 'Absensi / Presensi', 'url' => 'absen'],
             ['name' => 'Cuti', 'url' => 'cuti'],
-            ['name' => 'Izin', 'url' => 'izin'],
+            ['name' => 'Izin', 'url' => 'service/permit'],
             ['name' => 'Lembur', 'url' => 'lembur']
         ],
     ],

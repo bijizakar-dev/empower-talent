@@ -8,9 +8,11 @@
         <meta name="author" content="" />
         <?= $this->renderSection('title') ?>
         
-        <link href="<?= base_url()?>/assets/css/simple-datatables.min.css" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
-        <link href="<?= base_url()?>/template/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<?= base_url()?>/assets/css/simple-datatables.min.css"  />
+        <link rel="stylesheet" href="<?= base_url()?>/assets/css/jquery-ui.css"">
+        <link rel="stylesheet" href="<?= base_url()?>/template/css/styles.css"  />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
+        <link rel="stylesheet" href="<?= base_url()?>/assets/css/jquery-ui-timepicker-addon.min.css">
         <link rel="icon" type="image/x-icon" href="<?= base_url()?>/template/assets/img/favicon.png" />
         <style>
             /* Loading Style */
@@ -37,13 +39,12 @@
             }
             /* Loading Style */
         </style>
-        
+
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="<?= base_url()?>/assets/js/feather.min.js"></script>
         <script src="<?= base_url()?>/assets/js/jquery.min.js"></script>
         <script src="<?= base_url()?>/assets/js/sweetalert2.all.min.js"></script>
         <script src="<?= base_url()?>/template/js/scripts.js"></script>
-        <script src="<?= base_url()?>/assets/js/simple-datatables.min.js"></script>
         <script src="<?= base_url()?>/assets/js/helper_lib.js""></script>
 
         <script type="text/javascript">
@@ -98,5 +99,8 @@
         <script src="<?= base_url()?>/template/js/datatables/datatables-simple-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js" crossorigin="anonymous"></script>
         <script src="<?= base_url()?>/template/js/litepicker.js"></script>
+        <script src="<?= base_url()?>/assets/js/jquery-ui.js"></script>
+        <script src="<?= base_url()?>/assets/js/jquery-ui-timepicker-addon.min.js"></script>
+        <script src="<?= base_url()?>/assets/js/simple-datatables.min.js"></script>
     </body>
 </html>

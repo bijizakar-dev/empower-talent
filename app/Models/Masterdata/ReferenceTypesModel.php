@@ -66,4 +66,22 @@ class ReferenceTypesModel extends Model
         
         return $res;
     }
+
+    function get_all_type($category) {
+        $sql = "SELECT r.id, r.name 
+                FROM reference_types r
+                WHERE r.deleted_at is null 
+                    AND r.active = 1 
+                    AND r.category LIKE '%$category%'
+                order by r.name asc ";
+
+        $query = $this->query($sql)->getResult();
+        $data =  array();
+
+        foreach ($query as $key => $value) {
+            $data[$value->id] = $value->name;
+        }
+
+        return $data;
+    }
 }
