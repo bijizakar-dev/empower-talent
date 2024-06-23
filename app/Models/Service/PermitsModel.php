@@ -37,8 +37,29 @@ class PermitsModel extends Model
             $q.=" AND (date(p.created_at) between '".$search['created_start']."' AND '".$search['created_end']."')";
         }
 
-        if ($search['status'] != '') {
-            $q.=" AND p.status LIKE '%".$search['status']."%' ";
+        if (!empty($search['status'])) {
+            $statuses = explode(',', $search['status']);
+        } else {
+            $statuses = [];
+        }
+        
+        if (!empty($statuses)) {
+            // Escape each status and wrap with single quotes to prevent SQL injection
+            $escapedStatuses = array_map(function($status) {
+                return $this->escapeString(trim($status));
+            }, $statuses);
+            // Wrap each escaped status with single quotes
+            $quotedStatuses = array_map(function($status) {
+                return "'$status'";
+            }, $escapedStatuses);
+            // Join the quoted statuses into a single string
+            $statusString = implode(',', $quotedStatuses);
+        } else {
+            $statusString = '';
+        }
+
+        if (!empty($statusString)) {
+            $q .= " AND p.status IN ($statusString)";
         }
 
         $select = "SELECT p.* , e.name, e.nip, t.name as team_name, d.name as department_name, u.username ";

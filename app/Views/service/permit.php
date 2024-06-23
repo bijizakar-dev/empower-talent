@@ -113,7 +113,7 @@
             $.ajax({
                 url: '<?= base_url('api/service/listPermit') ?>',
                 type: 'GET',
-                data: 'created_start=<?= date('Y-m-1')?>&created_end=<?= date('Y-m-d')?>',
+                data: 'created_start=<?= date('Y-1-1')?>&created_end=<?= date('Y-m-d')?>&status=Approved,Cancelled,Rejected',
                 dataType: 'json',
                 beforeSend: function() {
                     showLoading();
@@ -125,7 +125,7 @@
                     if(response.data.jumlah != 0) {
                         $.each(response.data, function(i, v) {
 
-                            note = v.note != null ? '<br><span style="font-size: 13px"><small> Note : . '+v.note+'</small></span>' : ''
+                            note = (v.note != null && v.note != '') ? '<br><span style="font-size: 13px" class="badge bg-yellow-soft text-yellow"><small> Note : . '+v.note+'</small></span>' : ''
                             status = v.status
                             if(v.status == 'Submitted') {
                                 badgeStatus = 'bg-blue-soft text-blue';
@@ -135,7 +135,7 @@
                                 badgeStatus = 'bg-green-soft text-green'
                             } else if(v.status == 'Rejected') {
                                 badgeStatus = 'bg-red-soft text-red';
-                                $note = '<br><span style="font-size: 13px"><small> Alasan Penolakan : . '+v.reason_rejected+'</small></span>'
+                                note = '<br><span style="font-size: 13px;" class="badge bg-red-soft text-red"><small> Alasan Penolakan : '+v.reason_rejected+'</small></span>'
                             } else {
                                 badgeStatus = 'bg-yellow-soft text-yellow';
                             }
@@ -203,7 +203,7 @@
             $.ajax({
                 url: '<?= base_url('api/service/listPermit') ?>',
                 type: 'GET',
-                data: 'created_start=<?= date('Y-m-1')?>&created_end=<?= date('Y-m-d')?>&status=Submitted',
+                data: 'created_start=<?= date('Y-m-1')?>&created_end=<?= date('Y-m-d')?>&status=Submitted,Pending',
                 dataType: 'json',
                 beforeSend: function() {
                     showLoading();
@@ -214,8 +214,7 @@
                     let str = ''; let status = ''; let badgeStatus = '';
                     if(response.data.jumlah != 0) {
                         $.each(response.data, function(i, v) {
-                            console.log('ADA')
-                            note = v.note != null ? '<br><span style="font-size: 13px"><small> Note : . '+v.note+'</small></span>' : ''
+                            note = (v.note != null && v.note != '') ? '<br><span style="font-size: 13px" class="badge bg-yellow-soft text-yellow"><small> Note : . '+v.note+'</small></span>' : ''
                             status = v.status
                             if(v.status == 'Submitted') {
                                 badgeStatus = 'bg-blue-soft text-blue';
@@ -225,7 +224,7 @@
                                 badgeStatus = 'bg-green-soft text-green'
                             } else if(v.status == 'Rejected') {
                                 badgeStatus = 'bg-red-soft text-red';
-                                $note = '<br><span style="font-size: 13px"><small> Alasan Penolakan : . '+v.reason_rejected+'</small></span>'
+                                note = '<br><span style="font-size: 13px;" class="badge bg-red-soft text-red"><small> Alasan Penolakan : '+v.reason_rejected+'</small></span>'
                             } else {
                                 badgeStatus = 'bg-yellow-soft text-yellow';
                             }
