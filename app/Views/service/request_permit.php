@@ -35,7 +35,8 @@
        
 
         $(function() {
-            get_list_permit();
+            
+            get_list_pengajuan_permit();
             reset_form();
 
             $('#start_date_permit').datetimepicker({
@@ -71,7 +72,7 @@
 
             $('#reload').click(function(){
                 reset_form();
-                get_list_permit();
+                get_list_pengajuan_permit();
             });
 
             $('#add').click(function() {
@@ -96,19 +97,19 @@
             $('#img_emp').attr('src', '<?= base_url()?>template/assets/img/demo/user-placeholder.svg'); 
         }
 
-        function get_list_permit() {
+        function get_list_pengajuan_permit() {
 
-            if (dataTable2) {
-                dataTable2.destroy();
+            if (dataTable1) {
+                dataTable1.destroy();
             }
-            // dataTables2 = new simpleDatatables.DataTable("#datatablesSimple2");    
+            // dataTables1 = new simpleDatatables.DataTable("#datatablesSimple1");    
 
-            $('.table-izin tbody').empty();
+            $('.table-pengajuan tbody').empty();
             
             $.ajax({
                 url: '<?= base_url('api/service/listPermit') ?>',
                 type: 'GET',
-                data: 'created_start=<?= date('Y-1-1')?>&created_end=<?= date('Y-m-d')?>&status=Approved,Cancelled,Rejected',
+                data: 'created_start=<?= date('Y-m-1')?>&created_end=<?= date('Y-m-d')?>&status=Submitted,Pending',
                 dataType: 'json',
                 beforeSend: function() {
                     showLoading();
@@ -119,7 +120,6 @@
                     let str = ''; let status = ''; let badgeStatus = '';
                     if(response.data.jumlah != 0) {
                         $.each(response.data, function(i, v) {
-
                             note = (v.note != null && v.note != '') ? '<br><span style="font-size: 13px" class="badge bg-yellow-soft text-yellow"><small> Note : . '+v.note+'</small></span>' : ''
                             status = v.status
                             if(v.status == 'Submitted') {
@@ -134,7 +134,6 @@
                             } else {
                                 badgeStatus = 'bg-yellow-soft text-yellow';
                             }
-                            
 
                             str = '<tr>'+
                                     '<td>'+
@@ -153,25 +152,23 @@
                                     '</td>'+
                                     '<td><span class="badge '+badgeStatus+'">'+status+'</span></td>'+
                                     '<td>'+
-                                        '<span style="font-size: 12px;">User : '+v.username+'</span> '+
-                                        '<br><span style="font-size: 12px;">Waktu : '+v.updated_at+'</span> '+
-                                    '</td>'+
-                                    '<td>'+
                                         '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark me-2" onclick="edit_status_permit('+v.id+')" title="Ubah Status Pengajuan"><i data-feather="check-circle"></i></button> '+     
                                         '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark me-2" onclick="edit_permit('+v.id+')" title="Ubah Data"><i data-feather="edit"></i></button> '+     
                                         '<button type="button" class="btn btn-datatable btn-icon btn-transparent-dark" onclick="delete_permit('+v.id+')" title="Hapus Data"><i data-feather="trash-2"></i></button>'+
                                     '</td>'+
                                 '</tr>';
-                            $('.table-izin tbody').append(str);
+                            $('.table-pengajuan tbody').append(str);
                         });
                     } else {
+                        console.log('KOSONG')
+
                         str = '<tr><td class="datatable-empty" colspan="5">No entries found</td></tr>';
-                        $('.table-izin tbody').append(str);
+                        $('.table-pengajuan tbody').append(str);
                     }
 
                     feather.replace();
 
-                    dataTable2 = new simpleDatatables.DataTable("#datatablesSimple2");
+                    dataTable1 = new simpleDatatables.DataTable("#datatablesSimple1");
                 },
                 error: function(xhr, status, error) {
                     Swal.fire({
@@ -198,11 +195,11 @@
                 beforeSend: function() {
                     showLoading();
                 },
-                success: function(data) {    
-                    dataTables2 = new simpleDatatables.DataTable("#datatablesSimple2");    
+                success: function(data) {
+                    dataTables1 = new simpleDatatables.DataTable("#datatablesSimple1");      
 
                     $('#add_modal').modal('hide');
-                    get_list_permit();
+                    get_list_pengajuan_permit();
 
                     Swal.fire({
                         title: "Berhasil",
@@ -248,6 +245,7 @@
                         },
                         success: function(data) {
                             $('#add_modal').modal('hide');
+                            get_list_pengajuan_permit()
 
                             Swal.fire("Berhasil", "Data Berhasil Hapus", "success");
                         },
@@ -388,16 +386,21 @@
                     showLoading();
                 },
                 success: function(data) {
-                    $('#edit_status_modal').modal('hide');
-                    dataTables2 = new simpleDatatables.DataTable("#datatablesSimple2"); 
+                    if(!data.success) {
+                        return false;
+                    } else {
+                        $('#edit_status_modal').modal('hide');
+                        dataTables1 = new simpleDatatables.DataTable("#datatablesSimple1");   
 
-                    get_list_permit();
+                        get_list_pengajuan_permit()
 
-                    Swal.fire({
-                        title: "Berhasil",
-                        text: "Data Berhasil Simpan",
-                        icon: "success"
-                    });
+                        Swal.fire({
+                            title: "Berhasil",
+                            text: "Data Berhasil Simpan",
+                            icon: "success"
+                        });
+                    }
+                   
 
                 },
                 error: function(e){
@@ -421,11 +424,12 @@
         <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
             <div class="container-fluid px-4">
                 <div class="page-header-content">
+                    
                     <div class="row align-items-center justify-content-between pt-3">
                         <div class="col-auto mb-3">
                             <h1 class="page-header-title">
                                 <div class="page-header-icon"><i data-feather="list"></i></div>
-                                List Izin
+                                List Pengajuan Izin
                             </h1>
                         </div>
                         <div class="col-12 col-xl-auto mb-3">
@@ -437,6 +441,10 @@
                                 <i class="me-1" data-feather="refresh-ccw"></i>
                                 Reload
                             </button>
+                            <button type="button" class="btn btn-sm btn-light text-primary" id="add">
+                                <i class="me-1" data-feather="user-plus"></i>
+                                Tambah Pengajuan
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -446,14 +454,13 @@
         <div class="container-fluid px-4 mb-5">
             <div class="card">
                 <div class="card-body">
-                    <table id="datatablesSimple2" class="table-izin">
+                    <table id="datatablesSimple1" class="table-pengajuan">
                         <thead>
                             <tr>
                                 <th>Nama</th>
                                 <th>Waktu Izin</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
-                                <th>Approval</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -463,7 +470,6 @@
                                 <th>Waktu Izin</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
-                                <th>Approval</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>

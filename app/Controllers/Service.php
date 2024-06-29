@@ -23,4 +23,28 @@ class Service extends BaseController
         return view('service/permit', $data);
     }
 
+    public function getRequestPermit() {
+        $data['title'] = "Pengajuan Izin";
+        $data['employee'] =  $this->m_employee->get_all_employee();
+        $data['reference_type'] =  $this->m_type->get_all_type('Izin');
+
+        return view('service/request_permit', $data);
+    }
+
+    public function getPaidLeave() {
+        $data['title'] = "Cuti";
+        $data['employee'] =  $this->m_employee->get_all_employee();
+        $data['reference_type'] =  $this->m_type->get_all_type('Cuti');
+
+        return view('service/paid_leave', $data);
+    }
+
+    public function getRequestPaidLeave() {
+        $data['title'] = "Pengajuan Cuti";
+        $data['employee'] =  $this->m_employee->get_all_employee();
+        $data['reference_type'] =  $this->m_type->get_all_type('Cuti');
+
+        return view('service/request_paid_leave', $data);
+    }
+
 }

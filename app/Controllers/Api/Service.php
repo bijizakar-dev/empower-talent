@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Models\Masterdata\EmployeesModel;
+use App\Models\Service\PaidLeavesModel;
 use App\Models\Service\PermitsModel;
 use App\Models\UsersModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -16,6 +17,7 @@ class Service extends ResourceController
         $this->m_employee = new EmployeesModel();
         $this->m_user = new UsersModel();
         $this->m_permit = new PermitsModel();
+        $this->m_paid_leave = new PaidLeavesModel();
     }
 
     private function start($page){
@@ -26,7 +28,7 @@ class Service extends ResourceController
 
     }
 
-    /* DATA USER */
+    /* PERMIT */
     public function getListPermit(): ResponseInterface {
         // if(!$this->request->getVar('page')){
         //     return $this->respond(NULL, 400);
@@ -148,4 +150,128 @@ class Service extends ResourceController
             return $this->respond(array('status' => false), 200);
         }
     }
+    /* PERMIT */
+
+    /* PAID LEAVE */
+    public function getListPaidLeave(): ResponseInterface {
+        // if(!$this->request->getVar('page')){
+        //     return $this->respond(NULL, 400);
+        // }
+
+        $search = array(
+            'search'                => $this->request->getVar('search'),
+            'id_employee'           => $this->request->getVar('end_date'),
+            'id_type'               => $this->request->getVar('id_type'),
+            'start_date'            => $this->request->getVar('start_date'),
+            'end_date'              => $this->request->getVar('end_date'),
+            'created_start'         => $this->request->getVar('created_start'),
+            'created_end'           => $this->request->getVar('created_end'),
+            'status'                => $this->request->getVar('status'),
+        );
+
+        $start = $this->start($this->request->getVar('page'));
+
+        $data = $this->m_paid_leave->get_list_paid_leave($this->limit, $start, $search);
+        $data['page'] = (int)$this->request->getVar('page');
+        $data['limit'] = $this->limit;
+
+        if($data){
+            return $this->respond($data, 200); 
+        }else{
+            return $this->respond(array('error' => 'Data tidak ditemukan'), 404);
+        }
+    }
+
+    public function getPaidLeave(): ResponseInterface {
+        if(!$this->request->getVar('id')){
+            return $this->respond(NULL, 400);
+        }
+
+        $data['data'] = $this->m_paid_leave->get_paid_leave($this->request->getVar('id'));
+        $data['page'] = 1;
+        $data['limit'] = $this->limit;
+
+        if($data){
+            return $this->respond($data, 200); 
+        }else{
+            return $this->respond(array('error' => 'Data tidak ditemukan'), 404);
+        }
+    }
+
+    public function postPaidLeave(): ResponseInterface {
+        $id = null;
+        if($this->request->getPost('id')){
+            $id = $this->request->getPost('id');
+        }
+
+        // check Permit Duration Type (Hari atau Jam)
+        $duration = '';
+        $duration_type = $this->request->getPost('duration_type');
+        $start_date = new DateTime(strval($this->request->getPost('start_date')));
+        $end_date = new DateTime(strval($this->request->getPost('end_date')));
+
+        if (!empty($duration_type) && $duration_type == 'Hari') {
+            $interval = $start_date->diff($end_date);
+            $duration = $interval->days + 1 .' Hari'; 
+        } else {
+            $interval = $start_date->diff($end_date);
+            $duration = $interval->h .':'. $interval->i.' Jam'; 
+        }
+
+        // header('Content-Type: application/json');
+        // die(json_encode($duration));
+
+        $add = array (
+            'id' => $id,
+            'id_employee' => $this->request->getPost('id_employee'),
+            'id_type' => $this->request->getPost('id_type'),
+            'start_date' => $this->request->getPost('start_date'),
+            'end_date' => $this->request->getPost('end_date'),
+            'duration' => $duration,
+            'reason' => $this->request->getPost('reason'),
+            'file' => NULL,
+            'status' => 'Submitted'
+        );
+
+        $data = $this->m_paid_leave->update_paid_leave($add);
+
+        return $this->respond($data, 200);
+    }
+
+    function postUpdateStatusPaidLeave() {
+        $id = null;
+        if($this->request->getPost('id')){
+            $id = $this->request->getPost('id');
+        } else {
+            return $this->respond(array('status' => false), 200);
+        }
+
+        $param = array (
+            'id' => $id,
+            'status' => $this->request->getPost('status'),
+            'reason_rejected' => $this->request->getPost('reason_rejected'),
+            'note' => $this->request->getPost('note'),
+            'id_user_decide' => 1, // nnti diambil dari session login
+        );
+
+        $data = $this->m_paid_leave->update_paid_leave($param);
+
+        return $this->respond($data, 200);
+    }
+
+    public function deletePaidLeave(): ResponseInterface {
+        if(!$this->request->getVar('id')){
+            return $this->respond(NULL, 400);
+        }
+
+        $result = $this->m_paid_leave->delete_paid_leave($this->request->getVar('id'));
+
+        if($result){
+            return $this->respond(array('status' => $result), 200); 
+        }else{
+            return $this->respond(array('status' => false), 200);
+        }
+    }
+    /* PAID LEAVE */
+
 }

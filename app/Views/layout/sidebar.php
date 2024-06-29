@@ -42,22 +42,26 @@ function generateMenuItems($menuItems, $parentId = 'accordionSidenav', $isSubmen
     foreach ($menuItems as $item) {
         $collapseId = 'collapse' . str_replace(' ', '', $item['name']);
         $icon = isset($item['icon']) ? $item['icon'] : '';
-
-        // Check if current URL matches the item URL
-        $activeClass = ($currentUrl === '/' . trim($item['url'], '/')) ? 'active' : '';
+        $activeClass = '';
 
         if (isset($item['submenu'])) {
-            // Check if any submenu item is active
             $submenuActive = false;
             foreach ($item['submenu'] as $subItem) {
                 if ($currentUrl === '/' . trim($subItem['url'], '/')) {
                     $submenuActive = true;
+                    $activeClass = 'active';
                     break;
                 }
-            }
 
-            if ($submenuActive) {
-                $activeClass = 'active';
+                if (isset($subItem['submenu'])) {
+                    foreach ($subItem['submenu'] as $subSubItem) {
+                        if ($currentUrl === '/' . trim($subSubItem['url'], '/')) {
+                            $submenuActive = true;
+                            $activeClass = 'active';
+                            break 2; // Break out of both loops
+                        }
+                    }
+                }
             }
 
             $html .= '<a class="nav-link collapsed '.$activeClass.'" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#'.$collapseId.'" aria-expanded="false" aria-controls="'.$collapseId.'">';
@@ -71,6 +75,10 @@ function generateMenuItems($menuItems, $parentId = 'accordionSidenav', $isSubmen
             $html .= generateMenuItems($item['submenu'], $collapseId, true);
             $html .= '</div>';
         } else {
+            if ($currentUrl === '/' . trim($item['url'], '/')) {
+                $activeClass = 'active';
+            }
+
             $html .= '<a class="nav-link '.$activeClass.'" href="'.base_url().$item['url'].'">';
             if ($icon) {
                 $html .= '<div class="nav-link-icon"><i data-feather="'.$icon.'"></i></div>';
@@ -112,8 +120,22 @@ $menuItems = [
         'icon' => 'grid',
         'submenu' => [
             ['name' => 'Absensi / Presensi', 'url' => 'absen'],
-            ['name' => 'Cuti', 'url' => 'cuti'],
-            ['name' => 'Izin', 'url' => 'service/permit'],
+            [
+                'name' => 'Izin', 
+                'url' => 'service',
+                'submenu' => [
+                    ['name' => 'Pengajuan Izin', 'url' => 'service/requestPermit'],
+                    ['name' => 'List Izin', 'url' => 'service/permit'],
+                ]
+            ],
+            [
+                'name' => 'Cuti', 
+                'url' => 'service/requestPermit',
+                'submenu' => [
+                    ['name' => 'Pengajuan Cuti', 'url' => 'service/requestPaidLeave'],
+                    ['name' => 'List Cuti', 'url' => 'service/paidLeave'],
+                ]
+            ],
             ['name' => 'Lembur', 'url' => 'lembur']
         ],
     ],
